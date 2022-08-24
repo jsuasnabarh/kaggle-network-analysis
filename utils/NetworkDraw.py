@@ -21,13 +21,53 @@ class NetworkDraw():
             return top_nodes
 
 
-    def get_subgraph_from_with_neighbors(G=None,centro=None):
-        #Agregamos primero el nodo central y sus vecinos
-        predecessors = list(G.predecessors(centro))
-        successors = list(G.successors(centro))
-        mantener = predecessors + successors  + [centro]
-        G1 = G.subgraph(mantener)
-        return G1
+    def get_subgraph_from_with_neighbors(G=None,centro=None,with_second_level=True,directed=True):
+        
+        if directed:
+            #Agregamos primero el nodo central y sus vecinos
+            predecessors = list(G.predecessors(centro))
+            successors = list(G.successors(centro))
+            mantener = predecessors + successors  + [centro]
+
+            if (with_second_level):
+                mantener_p = []
+                mantener_s = []
+
+                #Agregamos a los vecinos del vecino
+                for p in predecessors:
+                    p_predecessors = list(G.predecessors(p))
+                    p_successors = list(G.successors(p))
+                    mantener_p = p_predecessors + p_successors  + [p]
+
+                for s in successors:
+                    s_predecessors = list(G.predecessors(s))
+                    s_successors = list(G.successors(s))
+                    mantener_s = s_predecessors + s_successors  + [s]
+
+                mantener_f = mantener + mantener_p + mantener_s
+                G1 = G.subgraph(mantener_f)
+                return G1
+            else:
+                G1 = G.subgraph(mantener)
+                return G1
+        else:
+            #Agregamos primero el nodo central y sus vecinos
+            neighbors = list(G.neighbors(centro))
+            mantener = neighbors  + [centro]
+
+            if (with_second_level):
+                mantener_n = []
+                #Agregamos a los vecinos del vecino
+                for n in neighbors:
+                    n_neighbors = list(G.neighbors(n))
+                    mantener_n = n_neighbors  + [n]
+
+                mantener_f = mantener + mantener_n
+                G1 = G.subgraph(mantener_f)
+                return G1
+            else:
+                G1 = G.subgraph(mantener)
+                return G1
 
     def get_subgraph_from_node_attr(G=None,tipo='>',attr= 'degree',corte=10):
         corte = float(corte)
