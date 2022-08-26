@@ -17,5 +17,6 @@ Para poder replicar el proyecto debera seguir los siguientes pasos:
 4. Crear una carpeta en la raiz del proyecto llamada "data" y dentro crear las siguientes 3 subcarpetas: raw, interim y processed.
 5. Descargar el zip que contiene el dataset original con corte al 22/06/22 desde [aqui](https://www.dropbox.com/s/gbm9mkikt2leeds/data.zip?dl=0).
 6. Descomprimir el archivo y copiar los csvs en la carpeta /data/raw.
+7. Ejecutar los archivos de la carpeta notebooks en orden.
 
 Cualquier duda, consulta u recomendacion por favor escribir a jsuasnabarh@gmail.com.
