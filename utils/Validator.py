@@ -24,6 +24,8 @@ class Validator():
             missing_percent = df[col].isnull().sum()/df.shape[0]*100
             negativo = df[df[col]<0][col].count()
             negativo_percent =negativo/df.shape[0]*100
+            zero = df[df[col]==0][col].count()
+            zero_percent =zero/df.shape[0]*100
             unico = df[col].nunique()
             media = df[col].mean()
             std = df[col].std()
@@ -66,6 +68,7 @@ class Validator():
                         n,+
                         missing,missing_percent,
                         negativo,negativo_percent,
+                        zero,zero_percent,
                         unico,
                         media,minimo,maximo,
                         IQRMAX,
@@ -93,6 +96,7 @@ class Validator():
                     "n",
                     "Missing","%Missing",
                     "Negativo","%Negativo",
+                    "Zero","%Zero",
                     "Unico",
                     "Media","Min","Max",
                     "IQRMAX",
@@ -118,7 +122,6 @@ class Validator():
             tabla = pd.DataFrame(valores,columns=nombres)
             df_final = df_final.append(tabla)
 
-        df_final = df_final.round(decimals =2)
         return df_final
 
     def validar_categorico(df,list_cols):
@@ -144,5 +147,4 @@ class Validator():
             tabla = pd.DataFrame(valores,columns=nombres)
             df_final = df_final.append(tabla)
 
-        df_final = df_final.round(decimals =2)
         return df_final
